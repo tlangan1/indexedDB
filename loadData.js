@@ -40,7 +40,11 @@ export function addData() {
   request.onsuccess = function (event) {
     // @ts-ignore
     db = event.target.result;
+    loadAllData();
   };
+}
+
+function loadAllData() {
   addLocation(location1);
   addLocation(location2);
   addPrediction(prediction1);
