@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="module" src="./createDatabase.js"></script>
+    <script type="module" src="./loadData.js"></script>
+    <script type="module">
+      import { openDatabase } from "./createDatabase.js";
+      import { addData } from "./loadData.js";
+      import { addTempPair } from "./alterData.js";
+      window.addEventListener("DOMContentLoaded", (event) => {
+        document.getElementById("open_db").addEventListener("click", () => {
+          openDatabase();
+        });
+        document.getElementById("addData").addEventListener("click", () => {
+          addData();
+        });
+        document.getElementById("alterData").addEventListener("click", () => {
+          addTempPair();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <button id="open_db">Open a Database</button>
+    <button id="addData">Add Data</button>
+    <button id="alterData">Alter Data</button>
+  </body>
+</html>
