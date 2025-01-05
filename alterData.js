@@ -7,12 +7,19 @@ export async function addTempPair() {
   request.onsuccess = function (event) {
     // @ts-ignore
     db = event.target.result;
-    add();
+    addIndividualPredictionItem();
   };
 }
 
-async function add() {
+async function addIndividualPredictionItem() {
   const tx = db.transaction("prediction", "readwrite");
+
+  tx.oncomplete = (event) => {
+    alert("Transaction completed.");
+  };
+  tx.onerror = (event) => {
+    alert("Error occurred in transaction.");
+  };
   // Get the record.
   const objectStore = tx.objectStore("prediction");
   const objectStoreRequest = objectStore.get("2021-08-02");
@@ -20,7 +27,7 @@ async function add() {
   objectStoreRequest.onsuccess = (event) => {
     const myRecord = objectStoreRequest.result;
     // Modify it.
-    myRecord.predictions.push("another prediction");
+    myRecord.predictions.push({ day_temp: 50, night_temp: 40 });
     // Put the modified record back.
     tx.objectStore("prediction").put(myRecord);
   };
